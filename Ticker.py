@@ -1,5 +1,5 @@
 
-#Goal: Scrape Worldometers
+#Goal: get stock market ticker from yfinance
 
 import yfinance as yf
 
