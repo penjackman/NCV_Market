@@ -14,7 +14,7 @@ Data_Process:
 - Scrape Coronavirus data from Worldometers and/or from somewhere with history
 - Build history if not available elsewhere on Web
 - Persist data
-- Use panda or matprotlib to plot graphs 
+- Use panda or matplotlib to plot graphs
 
 Website:
 - Register a website (name and hosting: to be determined)
