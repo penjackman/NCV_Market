@@ -15,14 +15,14 @@ tr_elements = doc.xpath('//tr')
 #print (outlist)
 
 hcol=[]
-i=0
+j=0
 
 #this loop is to get names from table header
 for t in tr_elements[0]:
-    i+=1
     name = t.text_content()
-    #print ('%d:"%s"' % (i, name))
+    #print ('%d:"%s"' % (j, name))
     hcol.append((name,[]))
+    j+=1
 
 # this loop is to get country name and cases from top countries
 for i in range(1,4):
