@@ -1,6 +1,5 @@
 
 #Goal: Scrape Worldometers
-#authors: Mihir, Bharadwaj, <add more>
 
 import lxml.html as LH
 import requests
