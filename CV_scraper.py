@@ -23,19 +23,21 @@ for t in tr_elements[0]:
     #print ('%d:"%s"' % (j, name))
     hcol.append((name,[]))
     #j+=1
+    
+#this test loop is to print country name and cases from top countries
+#for i in range(1,4):
+#    j=0
+#    for t in tr_elements[i]:
+#        name = hcol[j]
+#        value = t.text_content()
+#        print ('"%s": "%s"' % (name, value))
+#        j+=1
+#        if j == 3:
+#           break
 
+#ccases is a key-value store for countries vs cases
+#the cases are the current cases (need to build history separately)
 ccases = {}
-# this loop is to get country name and cases from top countries
-for i in range(1,4):
-    j=0
-    for t in tr_elements[i]:
-        name = hcol[j]
-        value = t.text_content()
-        #print ('"%s": "%s"' % (name, value))
-        j+=1
-        if j == 3:
-            break
-
 for i in range(1,4):
     country = tr_elements[i][0].text_content()
     cases = tr_elements[i][1].text_content()
