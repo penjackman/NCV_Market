@@ -1,7 +1,5 @@
 
 #Goal: Scrape Worldometers
-#authors: Mihir, Bharadwaj, <add more>
-
 
 import yfinance as yf
 
