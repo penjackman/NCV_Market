@@ -23,4 +23,11 @@ Website:
 
 Finally, integrate Data_Process into Website. 
 
+Sources:
+1. Johns Hopkins CSSEGI: https://github.com/CSSEGISandData/COVID-19
+2. Cleaned up data Worldwide: https://github.com/datasets/covid-19/blob/master/data/time-series-19-covid-combined.csv
+3. Worldometers (daily status): https://www.worldometers.info/coronavirus/
+
+
+
 Target Date for MVP: March 25, 2020.
