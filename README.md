@@ -16,12 +16,13 @@ Data_Process:
 - Persist data
 - Use panda or matplotlib to plot graphs
 
-Website:
+Website FrontEnd (FE):
 - Register a website (name and hosting: to be determined)
 - Have some basic white background 
 - Have an input for ticker symbol
+- Have space to display graph
 
-Finally, integrate Data_Process into Website. 
+Finally, connect Website FE with Data_Process to complete the mvp.
 
 Sources:
 1. Johns Hopkins CSSEGI: https://github.com/CSSEGISandData/COVID-19
