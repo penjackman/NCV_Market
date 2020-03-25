@@ -102,7 +102,7 @@ fig, ax1 = plt.subplots()
 color = 'tab:red'
 ax1.set_xlabel('date')
 ax1.set_ylabel('price', color=color)
-ax1.plot(sX, sCloses, color=color)
+ax1.plot(sDates, sCloses, color=color)
 ax1.tick_params(axis='y', labelcolor=color)
 
 ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
@@ -110,7 +110,7 @@ ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 color = 'tab:blue'
 ax2.set_ylabel('cases', color=color)  # we already handled the x-label with ax1
 
-ax2.plot(tX, tCases, color=color)
+ax2.plot(tDates, tCases, color=color)
 ax2.tick_params(axis='y', labelcolor=color)
 
 #fig = plt.figure(figsize=(12, 6))
