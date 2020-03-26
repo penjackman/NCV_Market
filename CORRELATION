@@ -11,6 +11,15 @@ A higher score means they correlate better, a lower score means they correlate b
  Note: The following algorithm is NOT the statistically proper way of doing correlation, 
        but we will use this simpler method and correct later
  
+ Note: you can create a new python file and test this with random arrays or initializaed arrays. 
+ For instance, initialization could be this:
+ 
+      import random
+      import numpy as np  #not using numpy in init, but numpy initi is easier (just google it)
+      
+      series1 = random.sample(xrange(500), 20)
+      series2 = random.sample(xrange(500), 20)
+      
  This can be done in python lists with loops or it can be done by converting lists to numpy arrays. 
  With numpy, arrays are much easier to manipulate and we can later use statistical funcions like cross-correlation. 
  A python list can be converted to numpy array simply by this:  
