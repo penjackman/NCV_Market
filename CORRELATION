@@ -29,7 +29,7 @@ A higher score means they correlate better, a lower score means they correlate b
       b. divide all elements with max:  
           series1Norm = series1/maxS1 and series2Norm = series2/max
     3. Take mean of sum square of differences:
-      a. Square of Differences:  
+      a. Square of Differences:  By squaring, you make all differences positive numbers
             diffSeries = (series1 - series2)**2 // with numpy, this is easier
       b. Sum of squares: this reduces the array to one value    
             sumDS = sum(diffSeries)  // alternatively, you can do sum of sqrts: sum(sqrt(diffseries))
