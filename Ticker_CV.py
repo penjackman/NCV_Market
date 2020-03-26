@@ -9,6 +9,7 @@ import datetime
 
 from os import getcwd
 
+url = "https://raw.githubusercontent.com/datasets/covid-19/master/data/time-series-19-covid-combined.csv"
 
 
 #define the ticker symbol
@@ -30,12 +31,11 @@ sDates = pd.to_datetime(sDates)
 sDates = sDates.strftime("%m-%d")
 #print(tDates)
 
-url = "https://raw.githubusercontent.com/datasets/covid-19/master/data/time-series-19-covid-combined.csv"
 
 directory = getcwd()
 print("directory is ", directory)
-filename = r'C:\Users\dubco\OneDrive\Documents\ncov_history.csv'
-#filename = "https://raw.githubusercontent.com/Dubcoder/NCV_Market/master/ncov_history.csv?token=ALYJT3EEXIDNYVVNI5Z73XC6POGDA"
+#filename = r'C:\Users\dubco\OneDrive\Documents\ncov_history.csv'
+filename = "https://raw.githubusercontent.com/Dubcoder/NCV_History-CSV-File/master/ncov_history.csv"
 
 # r = requests.get(url)
 
@@ -86,7 +86,7 @@ while True:
     tdate = tdate1.strftime("%Y-%m-%d")
     #print("Next date ", tdate)
 
-i=0
+
 
 # for td in cCases.keys():
 #     print("case date is ", td, " stock date is ", sDates[i])
