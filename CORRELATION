@@ -8,7 +8,8 @@ A higher score means they correlate better, a lower score means they correlate b
   
       score = Correlate(series1, series2)  # we do not need to send x-axis as long as both series1 and series2 have identical xticks
   
- Note: The following algorithm is NOT the statistically proper way of doing correlation, but we will use this simpler method and correct later
+ Note: The following algorithm is NOT the statistically proper way of doing correlation, 
+       but we will use this simpler method and correct later
  
  This can be done in python lists with loops or it can be done by converting lists to numpy arrays. 
  With numpy, arrays are much easier to manipulate and we can later use statistical funcions like cross-correlation. 
