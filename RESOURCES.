@@ -9,7 +9,9 @@ Project: Here are documentation and other resources you will need for this proje
    
 3. Editor of choice - Visual Studio Code (VSC): https://code.visualstudio.com/
 
-4. Structuring Python Project: https://docs.python-guide.org/writing/structure/
+4. Structuring Python Project: 
+   (a) https://docs.python-guide.org/writing/structure/
+   (b) https://packaging.python.org/tutorials/packaging-projects/
 
 5. Python WebServer intro blog: https://ruslanspivak.com/lsbaws-part1/
 
