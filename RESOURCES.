@@ -27,3 +27,5 @@ Data: Covid Statistics Reference:
 2. Use Mihir's cleaned up version (for testing): https://github.com/Dubcoder/NCV_History-CSV-File
 
 3. Scraping from Worldometers for Daily cases: https://www.worldometers.info/coronavirus/
+
+4. Yahoo finance for stock market (via yfinance python package)
