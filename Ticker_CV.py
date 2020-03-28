@@ -24,12 +24,12 @@ tickerDf = tickerData.history(period='1d', start='2020-1-22', end='2020-3-20')
 
 sCloses = tickerDf['Close'].to_list()
 
-#print(tCloses)
+#print(sCloses)
 
 sDates = tickerDf.index.to_list()
 sDates = pd.to_datetime(sDates)
-sDates = sDates.strftime("%m-%d")
-#print(tDates)
+sDates = sDates.strftime("%Y-%m-%d")
+#print(sDates)
 
 
 directory = getcwd()
@@ -77,11 +77,12 @@ while True:
     #print(df2)
     tconfirm = df2['Confirmed'].sum()
     #print("Date: ", tdate, "\tConfirmed cases: ", tconfirm)
-    tdate1 = pd.to_datetime(tdate)
-    tdate2 = tdate1.strftime("%m-%d")
-    cCases.update( {str(tdate2) : tconfirm} )   
+    # tdate1 = pd.to_datetime(tdate)
+    # tdate2 = tdate1.strftime("%m-%d")
+    cCases.update( {str(tdate) : tconfirm} )
     if tdate == end_date:
         break
+    tdate1 = pd.to_datetime(tdate)
     tdate1 = tdate1 + datetime.timedelta(days=1)
     tdate = tdate1.strftime("%Y-%m-%d")
     #print("Next date ", tdate)
@@ -109,12 +110,16 @@ for td in sDates:
 
 # sX = [range(1,len(sDates))]
 # tX = [range(1,len(Dates))]
+
+sDates1 = pd.to_datetime(sDates)
+sDates1 = sDates1.strftime("%m-%d")
+
 fig, ax1 = plt.subplots(figsize=(12,6))
 
 color = 'tab:blue'
 ax1.set_xlabel('date')
 ax1.set_ylabel('price', color=color)
-ax1.plot(sDates, sCloses, color=color)
+ax1.plot(sDates1, sCloses, color=color)
 ax1.tick_params(axis='y', labelcolor=color)
 for label in ax1.xaxis.get_ticklabels()[::2]:
     label.set_visible(False)
@@ -124,7 +129,7 @@ ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 color = 'tab:red'
 ax2.set_ylabel('cases', color=color)  # we already handled the x-label with ax1
 
-ax2.plot(sDates, tCases, color=color)
+ax2.plot(sDates1, tCases, color=color)
 ax2.tick_params(axis='y', labelcolor=color)
 for label in ax2.xaxis.get_ticklabels()[::2]:
     label.set_visible(False)
