@@ -23,3 +23,7 @@ Data: Covid Statistics Reference:
 1. Johns Hopkins CSSE Dept: 
   (a) https://github.com/CSSEGISandData/COVID-19
   (b) Select archived data folder
+
+2. Use Mihir's cleaned up version (for testing): https://github.com/Dubcoder/NCV_History-CSV-File
+
+3. Scraping from Worldometers for Daily cases: https://www.worldometers.info/coronavirus/
