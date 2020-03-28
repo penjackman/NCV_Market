@@ -9,8 +9,11 @@ import datetime
 
 from os import getcwd
 
+
 url = "https://raw.githubusercontent.com/datasets/covid-19/master/data/time-series-19-covid-combined.csv"
 
+start_date = '2020-01-22'
+end_date = '2020-03-27'
 
 #define the ticker symbol
 
@@ -20,7 +23,7 @@ tickerSymbol = str(input("Enter stock ticker: "))
 tickerData = yf.Ticker(tickerSymbol)
 
 #get the historical prices for this ticker
-tickerDf = tickerData.history(period='1d', start='2020-1-22', end='2020-3-20')
+tickerDf = tickerData.history(period='1d', start=start_date, end=end_date)
 
 sCloses = tickerDf['Close'].to_list()
 
@@ -56,9 +59,6 @@ df = pd.DataFrame(covid_data, columns= ['Date','Country/Region','Confirmed'])
 # print("Df date: ")
 # print(df["Date"])
 
-
-start_date = '2020-01-22'
-end_date = '2020-03-20'
 
 
 cCases = {}
