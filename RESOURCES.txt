@@ -1,0 +1,25 @@
+
+Project: Here are documentation and other resources you will need for this project.
+
+1. Python library reference: https://docs.python.org/3/library/index.html
+
+2. Python download (3.8.2) for Windows-64: 
+   (a) https://www.python.org/downloads/release/python-382/
+   (b) scroll to bottom and select: Windows x86-64 executable installer  (for AMD64/EM64T/x64)
+   
+3. Editor of choice - Visual Studio Code (VSC): https://code.visualstudio.com/
+
+4. Structuring Python Project: https://docs.python-guide.org/writing/structure/
+
+5. Python WebServer intro blog: https://ruslanspivak.com/lsbaws-part1/
+
+6. Two quick examples in github: 
+   (a) Simple WebServer Code (not tested): https://github.com/CohibAA/simple-python-web-server
+   (b) Webserver Code (not tested): https://gist.github.com/joncardasis/cc67cfb160fa61a0457d6951eff2aeae
+
+
+Data: Covid Statistics Reference:
+
+1. Johns Hopkins CSSE Dept: 
+  (a) https://github.com/CSSEGISandData/COVID-19
+  (b) Select archived data folder
