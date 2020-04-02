@@ -10,10 +10,30 @@ import string
 
 
 from os import getcwd
+def Ticker(start_date, end_date):
+    #define the ticker symbol
+
+    tickerSymbol = str(input("Enter stock ticker: "))
+
+    #get data on this ticker
+    tickerData = yf.Ticker(tickerSymbol)
+
+    #get the historical prices for this ticker
+    tickerDf = tickerData.history(period='1d', start=start_date, end=end_date)
+
+    sCloses = tickerDf['Close'].to_list()
+
+    #print(sCloses)
+
+    sDates = tickerDf.index.to_list()
+    sDates = pd.to_datetime(sDates)
+    sDates = sDates.strftime("%Y-%m-%d")
+
+    return sDates, sCloses
 
 
 
-def Ticker_CV(df, tdate, cCases, end_date, sDates, tCases):
+def CV(df, tdate, cCases, end_date, sDates, tCases):
     while True:
         #print("tdate is ", tdate)
         #mask = (df['Date'] >= tdate) & (df['Date'] <= tdate)
@@ -83,56 +103,22 @@ def main():
 
     start_date = '2020-01-22'
     end_date = str(datetime.date.today())
-
-    #define the ticker symbol
-
-    tickerSymbol = str(input("Enter stock ticker: "))
-
-    #get data on this ticker
-    tickerData = yf.Ticker(tickerSymbol)
-
-    #get the historical prices for this ticker
-    tickerDf = tickerData.history(period='1d', start=start_date, end=end_date)
-
-    sCloses = tickerDf['Close'].to_list()
-
-    #print(sCloses)
-
-    sDates = tickerDf.index.to_list()
-    sDates = pd.to_datetime(sDates)
-    sDates = sDates.strftime("%Y-%m-%d")
-    #print(sDates)
-
-
-    directory = getcwd()
-    print("directory is ", directory)
     filename = url
-    #filename = "https://raw.githubusercontent.com/Dubcoder/NCV_History-CSV-File/master/ncov_history.csv"
-
-
     print(filename)
     print("starting")
-    #covid_data = pd.read_csv(filename)
     df = pd.read_csv(filename, lineterminator='\n')
-    #df = pd.DataFrame(covid_data, columns= ['Date','Country/Region','Confirmed'])
-    # print("COVID")
-    # print(covid_data)
-    # print("DF")
-    # print(df)
-    # print("Df date: ")
-    # print(df["Date"])
-
-
 
     cCases = {}
     tCases = []
-
+    
     tdate = start_date
+    
+    sDates, sCloses = Ticker(start_date, end_date)
     
     sDates1 = pd.to_datetime(sDates)
     sDates1 = sDates1.strftime("%m-%d")
     
-    Ticker_CV(df, tdate, cCases, end_date, sDates, tCases)
+    CV(df, tdate, cCases, end_date, sDates, tCases)
     Plot(sDates1, sCloses, tCases)
 
 if __name__ == "__main__":
