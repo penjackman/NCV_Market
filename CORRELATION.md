@@ -1,5 +1,5 @@
 
-CORRELATION OF TWO TIMESERIES
+## CORRELATION OF TWO TIMESERIES
 
 Note: any confusion on how to write python, either find it in a manual or google - you will find examples
 
@@ -37,12 +37,14 @@ A higher score means they correlate better, a lower score means they correlate b
           maxS1 = max(series1) and maxS2 = max(series2)  // you have to write your own max if not using numpy
       b. divide all elements with max:  
           series1Norm = series1/maxS1 and series2Norm = series2/max
-    3. Take mean of sum square of differences:
-      a. Square of Differences:  By squaring, you make all differences positive numbers
-            diffSeries = (series1 - series2)**2 // with numpy, this is easier
-      b. Sum of squares: this reduces the array to one value    
+    3. Take mean of sum square of differences (proportional ratio):
+      a. Square of Differences:  By squaring, you make all differences positive numbers. But you have to make the differences proportional.
+            diffSeries = (1 - series2/series1)**2 // it is actually ((series1 - series2)/series1)**2
+      b. Renomralize the diffSeries - the step above may take some values above 1
+            diffSeriesNorm = diffSeries/max(diffSeries) // this will reduce values back to 0 to 1
+      c. Sum of squares: this reduces the array to one value    
             sumDS = sum(diffSeries)  // alternatively, you can do sum of sqrts: sum(sqrt(diffseries))
-      c. Mean: bringing result back between 0 to 1
+      d. Mean: bringing result back between 0 to 1
             meanDS = sumDS/len(diffSeries)
     4. score = (1 - meanDS)*10
     
