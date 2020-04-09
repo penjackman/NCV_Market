@@ -21,15 +21,19 @@ import matplotlib as mpl
 # plt.tight_layout()
 # plt.show()
 
-#Below is working color bar with labels
+#Below is working color bar with labels and arrow
 
 fig, ax = plt.subplots(figsize=(6, 1))
 fig.subplots_adjust(bottom=0.5)
 
 cmap = mpl.cm.plasma
-labels = ('Dreadful', 'Poor', 'Mediocre', 'Good', 'Excellent', 'Phenomenal')
+# labels = ('Dreadful', 'Poor', 'Mediocre', 'Good', 'Excellent', 'Phenomenal')
+norm = mpl.colors.Normalize(vmin=0 ,vmax=10)
+trans = ax.get_yaxis_transform()
+ann = ax.annotate('5', xy=(0.5,-0.2), xycoords=trans, xytext=(0.5, -0.3), textcoords='axes fraction', 
+                  arrowprops=dict(facecolor='black', shrink=0.0, width=0.5, headwidth=3.5, headlength=3.5), 
+                  horizontalalignment='center', verticalalignment='baseline',)
 
-cb1 = mpl.colorbar.ColorbarBase(ax, cmap=cmap, orientation='horizontal')
-cb1.set_label('Color Bar/Heat Map')
-cb1.ax.set_xticklabels(labels)
+cb1 = mpl.colorbar.ColorbarBase(ax, cmap=cmap, norm=norm, orientation='horizontal')
+# cb1.ax.set_xticklabels(labels)
 plt.show()
