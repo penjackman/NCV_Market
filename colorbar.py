@@ -30,9 +30,14 @@ cmap = mpl.cm.plasma
 # labels = ('Dreadful', 'Poor', 'Mediocre', 'Good', 'Excellent', 'Phenomenal')
 norm = mpl.colors.Normalize(vmin=0 ,vmax=10)
 trans = ax.get_yaxis_transform()
-ann = ax.annotate('5', xy=(0.5,-0.2), xycoords=trans, xytext=(0.5, -0.3), textcoords='axes fraction', 
-                  arrowprops=dict(facecolor='black', shrink=0.0, width=0.5, headwidth=3.5, headlength=3.5), 
-                  horizontalalignment='center', verticalalignment='baseline',)
+final = round(score, 2)
+ann = ax.annotate(str(final), xy=(score/10,-0.2), xycoords=trans, xytext=(score/10, -0.3), textcoords='axes fraction',
+arrowprops=dict(color='orange', shrink=0.0, width=0.5, headwidth=3.5, headlength=3.5), 
+horizontalalignment='center', verticalalignment='baseline',)
+
+cb1 = mpl.colorbar.ColorbarBase(ax, cmap=cmap, norm=norm, orientation='horizontal')
+# cb1.ax.set_xticklabels(labels)
+plt.show()
 
 cb1 = mpl.colorbar.ColorbarBase(ax, cmap=cmap, norm=norm, orientation='horizontal')
 # cb1.ax.set_xticklabels(labels)
