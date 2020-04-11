@@ -31,22 +31,17 @@ A higher score means they correlate better, a lower score means they correlate b
  Rest of the algorithm is described as if it is not numpy (but you can simply use numpy instead)
  
  Here is the algorithm (routines like max and sum must be figured out if they don't exist)
-  
-    1. Normalize values to 0-1 range as each series may have different ranges:
-      a. Find max first.  
-          maxS1 = max(series1) and maxS2 = max(series2)  // you have to write your own max if not using numpy
-      b. divide all elements with max:  
-          series1Norm = series1/maxS1 and series2Norm = series2/max
-    3. Take mean of sum square of differences (proportional ratio):
+
+    1. Take square of sum of differences (proportional ratio):
       a. Square of Differences:  By squaring, you make all differences positive numbers. But you have to make the differences proportional.
             diffSeries = (1 - series2/series1)**2 // it is actually ((series1 - series2)/series1)**2
       b. Renomralize the diffSeries - the step above may take some values above 1
             diffSeriesNorm = diffSeries/max(diffSeries) // this will reduce values back to 0 to 1
       c. Sum of squares: this reduces the array to one value    
-            sumDS = sum(diffSeries)  // alternatively, you can do sum of sqrts: sum(sqrt(diffseries))
+            sumDS = sum(diffSeriesNorm)  // alternatively, you can do sum of sqrts: sum(sqrt(diffseries))
       d. Mean: bringing result back between 0 to 1
-            meanDS = sumDS/len(diffSeries)
-    4. score = (1 - meanDS)*10
+            meanDS = sumDS/len(diffSeriesNorm)
+    2. score = (1 - meanDS)*10
     
     So, a score of 8 or 9 out of 10 indicates both series1 and series2 are close while a score of 0 means they are far. 
     
