@@ -29,7 +29,7 @@ cmap = mpl.cm.plasma
 norm = mpl.colors.Normalize(vmin=0 ,vmax=10)
 trans = ax.get_yaxis_transform()
 final = round(score, 2)
-ann = ax.annotate(str(final), xy=(score/10,-0.2), xycoords=trans, xytext=(score/10, -0.3), textcoords='axes fraction',
+ann = ax.annotate(str(final), xy=(score/10,-0.2), xycoords=trans, xytext=(score/10, -0.3), textcoords='axes fraction', color='orange',
 arrowprops=dict(color='orange', shrink=0.0, width=0.5, headwidth=3.5, headlength=3.5), 
 horizontalalignment='center', verticalalignment='baseline',)
 
