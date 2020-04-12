@@ -37,6 +37,3 @@ cb1 = mpl.colorbar.ColorbarBase(ax, cmap=cmap, norm=norm, orientation='horizonta
 # cb1.ax.set_xticklabels(labels)
 plt.show()
 
-cb1 = mpl.colorbar.ColorbarBase(ax, cmap=cmap, norm=norm, orientation='horizontal')
-# cb1.ax.set_xticklabels(labels)
-plt.show()
