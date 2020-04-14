@@ -1,0 +1,75 @@
+import sqlite3
+from sqlite3 import Error
+
+
+def main():
+    database = r"C:\Users\bhpudipe\Documents\BackupSep2019\Documents\mosaic\tickercv2.db"
+
+    # CREATE a database in RAM
+    db = sqlite3.connect(':memory:')
+    # OR CREATE a DB in file
+    #db = sqlite3.connect(database)
+
+
+    # Get a cursor object
+    cursor = db.cursor()
+    cursor.execute('''
+        CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT, score INTEGER)
+        ''')
+    db.commit()
+
+    # INITIALLIZE DB (called users) with 2 entries
+    cursor = db.cursor()
+    name1 = 'SPY'
+    score1 = '3'
+    
+    name2 = 'NFLX'
+    score2 = '4'
+
+    # Insert user 1
+    cursor.execute('''INSERT INTO users(name, score)
+                    VALUES(?,?)''', (name1, score1))
+    print('First user inserted')
+    
+    # Insert user 2
+    cursor.execute('''INSERT INTO users(name, score)
+                    VALUES(?,?)''', (name2, score2))
+    print('Second user inserted')
+    db.commit()
+
+    # DELETE user with id 2
+    #delete_userid = 2
+    #cursor.execute('''DELETE FROM users WHERE id = ? ''', (delete_userid,))
+    #db.commit()
+
+
+    #SEARCH for MAX 
+    #cursor.execute('''SELECT name, score FROM users''')
+    cursor.execute('''SELECT max(score), name FROM users''')
+    #user1 = cursor.fetchone() #retrieve the first row
+    #print(user1[0]) #Print the first column retrieved(user's name)
+    all_rows = cursor.fetchall()
+    print("retrieving db ... ")
+    for row in all_rows:
+        # row[0] returns the first column in the query (name), row[1] returns 2nd column (score)
+        print('{0} : {1}'.format(row[0], row[1]))
+
+
+
+    # UPDATE user with MAX score with new MAX score
+    cursor.execute('''SELECT max(score), name FROM users''')
+    newscore = 7
+    ticker = cursor.fetchone()[1]
+    cursor.execute('''UPDATE users SET score = ? WHERE name = ? ''',
+    (newscore, ticker))
+    
+    #SEARCH AGAIN for MAX
+    #cursor.execute('''SELECT name, score FROM users''')
+    cursor.execute('''SELECT max(score), name FROM users''')
+    #user1 = cursor.fetchone() #retrieve the first row
+    #print(user1[0]) #Print the first column retrieved(user's name)
+    all_rows = cursor.fetchall()
+    print("retrieving db ... ")
+    for row in all_rows:
+        # row[0] returns the first column in the query (name), row[1] returns 2nd column (score)
+        print('{0} : {1}'.format(row[0], row[1]))
