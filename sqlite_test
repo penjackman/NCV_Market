@@ -1,75 +1,110 @@
 import sqlite3
 from sqlite3 import Error
 
-
-def main():
-    database = r"C:\Users\bhpudipe\Documents\BackupSep2019\Documents\mosaic\tickercv2.db"
-
-    # CREATE a database in RAM
-    db = sqlite3.connect(':memory:')
-    # OR CREATE a DB in file
-    #db = sqlite3.connect(database)
+import datetime
+from datetime import datetime, date, timedelta
 
 
+def create_db(db):
     # Get a cursor object
     cursor = db.cursor()
     cursor.execute('''
-        CREATE TABLE users(id INTEGER PRIMARY KEY, name TEXT, score INTEGER)
+        CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, name TEXT UNIQUE, score FLOAT, udate DATE)
         ''')
     db.commit()
+    cursor = db.cursor()
+    return cursor
+
+def update_db(db, name, score, udate):
+    # Get a cursor object
+    cursor = db.cursor()
+    cursor.execute('''INSERT or REPLACE INTO users(name, score, udate)
+                    VALUES(?,?,?)''', (name, score, udate))
+    db.commit()   
+    return cursor
+
+# def del_db(db, name):
+    # DELETE user with id 2
+    # delete_userid = 2
+    # cursor.execute('''DELETE FROM users WHERE id = ? ''', (delete_userid,))
+    # db.commit()
+
+def getall_db(cursor):
+    cursor.execute('''SELECT name, score, udate FROM users''')
+    all_rows = cursor.fetchall()
+    return all_rows
+
+def getmin_db(cursor):
+    cursor.execute('''SELECT min(score), name, udate FROM users''')
+    row = cursor.fetchone()
+    return row
+
+def getmax_db(cursor):
+    cursor.execute('''SELECT max(score), name, udate FROM users''')
+    all_rows = cursor.fetchall()
+    return all_rows
+
+def getprior_db(cursor, sdate, edate):
+    cursor.execute('''SELECT * FROM users WHERE 
+    strftime('%s', udate) BETWEEN strftime('%s', ?) AND strftime('%s', ?)''', (sdate, edate))
+    all_rows = cursor.fetchall()
+    return all_rows
+
+
+def main():
+    #database = r"C:\Users\bhpudipe\Documents\BackupSep2019\Documents\mosaic\tickercv.db"
+    database = ':memory:' # in-memory
+
+    # CREATE a database in RAM or file
+    db = sqlite3.connect(database)
+
+    cursor = create_db(db)
 
     # INITIALLIZE DB (called users) with 2 entries
-    cursor = db.cursor()
-    name1 = 'SPY'
-    score1 = '3'
-    
-    name2 = 'NFLX'
-    score2 = '4'
+    name1 = 'MSFT'
+    score1 = '1'
+    udate1 = datetime.strftime(datetime.now() - timedelta(3), '%Y-%m-%d')
+    update_db(db, name1, score1, udate1)
 
-    # Insert user 1
-    cursor.execute('''INSERT INTO users(name, score)
-                    VALUES(?,?)''', (name1, score1))
-    print('First user inserted')
-    
-    # Insert user 2
-    cursor.execute('''INSERT INTO users(name, score)
-                    VALUES(?,?)''', (name2, score2))
-    print('Second user inserted')
-    db.commit()
+    name2 = 'SPY'
+    score2 = '3'
+    udate2 = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
+    update_db(db, name2, score2, udate2)
 
-    # DELETE user with id 2
-    #delete_userid = 2
-    #cursor.execute('''DELETE FROM users WHERE id = ? ''', (delete_userid,))
-    #db.commit()
+    name3 = 'NFLX'
+    score3 = '4'
+    udate3 = date.today().strftime('%Y-%m-%d')
+    update_db(db, name3, score3, udate3)
 
-
-    #SEARCH for MAX 
-    #cursor.execute('''SELECT name, score FROM users''')
-    cursor.execute('''SELECT max(score), name FROM users''')
-    #user1 = cursor.fetchone() #retrieve the first row
-    #print(user1[0]) #Print the first column retrieved(user's name)
-    all_rows = cursor.fetchall()
-    print("retrieving db ... ")
+    print("GETTING All rows from db: ")
+    all_rows = getall_db(cursor)
     for row in all_rows:
         # row[0] returns the first column in the query (name), row[1] returns 2nd column (score)
-        print('{0} : {1}'.format(row[0], row[1]))
+        print('\t{0} : {1}: {2}'.format(row[0], row[1], row[2]))
 
-
-
-    # UPDATE user with MAX score with new MAX score
-    cursor.execute('''SELECT max(score), name FROM users''')
+    # UPDATE user with min score with new score
+    row = getmin_db(cursor)
+    ticker = row[1]
     newscore = 7
-    ticker = cursor.fetchone()[1]
-    cursor.execute('''UPDATE users SET score = ? WHERE name = ? ''',
-    (newscore, ticker))
+    newdate = datetime.strftime(datetime.now() - timedelta(5), '%Y-%m-%d')
+    update_db(db, ticker, newscore, newdate)
     
-    #SEARCH AGAIN for MAX
-    #cursor.execute('''SELECT name, score FROM users''')
-    cursor.execute('''SELECT max(score), name FROM users''')
-    #user1 = cursor.fetchone() #retrieve the first row
-    #print(user1[0]) #Print the first column retrieved(user's name)
-    all_rows = cursor.fetchall()
-    print("retrieving db ... ")
+    all_rows = getmax_db(cursor)
+    print("RETRIEVING Max:")
     for row in all_rows:
-        # row[0] returns the first column in the query (name), row[1] returns 2nd column (score)
-        print('{0} : {1}'.format(row[0], row[1]))
+        print('\t{0} : {1}: {2}'.format(row[0], row[1], row[2]))
+
+
+    #pdate = date.today().strftime('%Y-%m-%d')
+    sdate = '2020-01-01'
+    edate = datetime.strftime(datetime.now() - timedelta(1), '%Y-%m-%d')
+    all_rows = getprior_db(cursor, sdate, edate)
+    print("RETRIEVING Rows Prior to ", edate, ": ")
+    #print(all_rows)
+    for row in all_rows:
+        print('\t{0} : {1}: {2}'.format(row[1], row[2], row[3]))
+
+    db.close()
+
+if __name__ == '__main__':
+    main()
