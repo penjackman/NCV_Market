@@ -4,7 +4,6 @@ import yfinance as yf
 import datetime as dt
 from scipy import stats
 
-
 def Ticker(start_date, end_date, tickerSymbol):
     
     tickerData = yf.Ticker(tickerSymbol)
@@ -15,7 +14,6 @@ def Ticker(start_date, end_date, tickerSymbol):
     sDates = sDates.strftime("%Y-%m-%d")
 
     return sDates, sCloses
-
 
 def Soaring(sDates, sCloses):
 
