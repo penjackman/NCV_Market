@@ -1,0 +1,68 @@
+import numpy as np  #not using numpy in init, but numpy initi is easier (just google it)
+import pandas as pd
+import yfinance as yf
+import datetime as dt
+from scipy import stats
+
+
+def Ticker(start_date, end_date, tickerSymbol):
+    
+    tickerData = yf.Ticker(tickerSymbol)
+    tickerDf = tickerData.history(period='1d', start=start_date, end=end_date)
+    sCloses = tickerDf['Close'].to_list()
+    sDates = tickerDf.index.to_list()
+    sDates = pd.to_datetime(sDates)
+    sDates = sDates.strftime("%Y-%m-%d")
+
+    return sDates, sCloses
+
+
+def Soaring(sDates, sCloses):
+ 
+    psCloses = pd.Series(sCloses, sDates)
+
+    pMeans = psCloses.ewm(span=2, adjust=False).mean()
+
+    pChanges = pMeans.pct_change()
+    
+    x = np.asarray(sDates)
+    y = np.asarray(pChanges.values)
+    x = x[1:]
+    y = y[1:]
+   
+    # # Create a sequance of integers from 0 to x.size to use in np.polyfit() call
+    x_seq = np.arange(x.size) # 
+
+    # call numpy polyfit() method with x_seq, y 
+    fit = np.polyfit(x_seq, y, 1)
+    fit_fn = np.poly1d(fit)
+    slope = 10 + 1000*fit[0]
+
+    if (slope > 10):
+        slope = 10
+
+    # print('Slope = ', fit[0], ", ","Intercept = ", fit[1])
+    # print(fit_fn)
+    # print("PSCLOSES:")
+    # print(psCloses)
+    # print("PMEANS:")
+    # print(pMeans)
+    # print("PMEANS PCT CHANGE:")
+    # print(pChanges)
+
+    return slope
+
+def main():
+
+    tickerSymbol = 'DAL'
+    start_date = '2020-03-20'
+    end_date = '2020-04-01'
+    
+    sDates, sCloses = Ticker(start_date, end_date, tickerSymbol)
+
+    slope = Soaring(sDates, sCloses)
+
+    print("Ticker is ", tickerSymbol, " and SLOPE is: ", slope)
+
+if __name__ == '__main__':
+    main()
