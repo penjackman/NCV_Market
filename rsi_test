@@ -4,9 +4,7 @@ import matplotlib.pyplot as plt
 import yfinance as yf
 import numpy as np
 
-
 def Ticker(start_date, end_date, ticker):
-    
     tickerData = yf.Ticker(ticker)
     tickerDf = tickerData.history(period='1d', start=start_date, end=end_date)
     sCloses = tickerDf['Close'].to_list()
@@ -15,7 +13,6 @@ def Ticker(start_date, end_date, ticker):
     sDates = sDates.strftime("%Y-%m-%d")
 
     return sDates, sCloses
-
 
 # Get just the adjusted close
 def computeRSI (data, time_window, speriod):
@@ -44,7 +41,6 @@ def computeRSI (data, time_window, speriod):
     return rsi_trend
 
 def main():
-
     ticker = input("Enter Ticker: ")
 
     # Dates
