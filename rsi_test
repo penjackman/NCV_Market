@@ -1,4 +1,3 @@
-
 import pandas as pd
 import datetime
 import matplotlib.pyplot as plt
@@ -42,28 +41,26 @@ def computeRSI (data, time_window):
     down_chg_avg = down_chg.ewm(com=time_window-1 , min_periods=time_window).mean()
     
     rs = abs(up_chg_avg/down_chg_avg)
-    rsiSeries = 100 - 100/(1+rs)
-     
-    rsiValues = rsiSeries.values
-    rsi = rsiValues[len(rsiValues)-1]
-
-    return rsi
+    rsi = 100 - 100/(1+rs)
+    rsi_trend = rsi.rolling(window=65).mean()
+    return rsi_trend
 
 def main():
 
-    #ticker = input("Enter Ticker: ")
-    ticker = 'AMZN'
+    ticker = input("Enter Ticker: ")
 
     # Dates
-    start = '2020-03-01'
+    start = '2019-11-01'
     end = '2020-04-16'
     # Get data
     sDates, sCloses = Ticker(start, end, ticker)
     psCloses = pd.Series(sCloses, sDates)
 
-    rsi = computeRSI(psCloses, 14)
+    rsiSeries = computeRSI(psCloses, 10)
+
+    rsiValues = rsiSeries.values
+    rsi = rsiValues[len(rsiValues)-1]
 
     print("RSI is ", rsi)
 
 if __name__ == '__main__':
-    main()
