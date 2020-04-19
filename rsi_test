@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import yfinance as yf
 import numpy as np
 
-# Window length for moving average
-window_length = 14
 
 def Ticker(start_date, end_date, ticker):
     
@@ -20,7 +18,7 @@ def Ticker(start_date, end_date, ticker):
 
 
 # Get just the adjusted close
-def computeRSI (data, time_window):
+def computeRSI (data, time_window, speriod):
     diff = data.diff(1).dropna()        # diff in one field(one day)
 
     #this preservers dimensions off diff values
@@ -42,7 +40,7 @@ def computeRSI (data, time_window):
     
     rs = abs(up_chg_avg/down_chg_avg)
     rsi = 100 - 100/(1+rs)
-    rsi_trend = rsi.rolling(window=65).mean()
+    rsi_trend = rsi.rolling(window=speriod).mean()
     return rsi_trend
 
 def main():
@@ -56,7 +54,7 @@ def main():
     sDates, sCloses = Ticker(start, end, ticker)
     psCloses = pd.Series(sCloses, sDates)
 
-    rsiSeries = computeRSI(psCloses, 10)
+    rsiSeries = computeRSI(psCloses, 10, 65)
 
     rsiValues = rsiSeries.values
     rsi = rsiValues[len(rsiValues)-1]
