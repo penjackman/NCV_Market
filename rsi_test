@@ -62,3 +62,5 @@ def main():
     print("RSI is ", rsi)
 
 if __name__ == '__main__':
+    main()
+    
