@@ -42,7 +42,11 @@ def computeRSI (data, time_window):
     down_chg_avg = down_chg.ewm(com=time_window-1 , min_periods=time_window).mean()
     
     rs = abs(up_chg_avg/down_chg_avg)
-    rsi = 100 - 100/(1+rs)
+    rsiSeries = 100 - 100/(1+rs)
+     
+    rsiValues = rsiSeries.values
+    rsi = rsiValues[len(rsiValues)-1]
+
     return rsi
 
 def main():
@@ -57,10 +61,7 @@ def main():
     sDates, sCloses = Ticker(start, end, ticker)
     psCloses = pd.Series(sCloses, sDates)
 
-    rsiSeries = computeRSI(psCloses, 14)
-
-    rsiValues = rsiSeries.values
-    rsi = rsiValues[len(rsiValues)-1]
+    rsi = computeRSI(psCloses, 14)
 
     print("RSI is ", rsi)
 
