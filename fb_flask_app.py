@@ -7,12 +7,24 @@ matplotlib.use("Agg")
 #import numpy as np
 import pandas as pd
 import datetime
+from datetime import date
+import sqlite3
 
 import Ticker
 import CV_Stats
 import Plot
 
+import sql_feedback as sfb
+
 app = Flask(__name__)
+
+fb_file = ':memory:' # in-memory
+
+# CREATE a database in RAM or file
+fdb = sqlite3.connect(fb_file)
+
+cursor = sfb.createfb_db(fdb)
+
 
 @app.route('/')
 def index():
@@ -39,18 +51,13 @@ def index():
     sDates1 = pd.to_datetime(sDates)
     sDates1 = sDates1.strftime("%m-%d")
 
-    score = 4.9
-    score1 = 7.5
-    CorrName = 'MSFT'
-    CorrScore = 7.0
-    SoarName = 'NFLX'
-    SoarScore = 8.3
-    SoarName = str(SoarName)
-    SoarScore = float(str(SoarScore))
-    CorrName = str(CorrName)
-    CorrScore = float(str(CorrScore))
-
     plot_url = Plot.Plot(sDates1, sCloses, tickerSymbol, tCases)
+    #cmap2 = matplotlib.cm.bone
+    #plot_url1 = HeatMap.HeatMap(score, tickerSymbol, cmap2, CorrName, CorrScore)
+    plot_url1 = ""
+
+    #cmap = matplotlib.cm.plasma
+    #plot_url2 = HeatMap.HeatMap(score1, tickerSymbol, cmap, SoarName, SoarScore)
     plot_url2 = ""
     return render_template('index.html', title=('%s vs COVID-19' % tickerSymbol), plot_url1=plot_url1, plot_url2=plot_url2, plot_url=plot_url, symbol=tickerSymbol)
 
@@ -60,6 +67,11 @@ def feedback():
     if request.method == 'POST':
         uname = request.form.get('name1')
         ucomment = request.form.get('comment1')
+        udate = date.today().strftime('%Y-%m-%d')
+        sfb.updatefb_db(fdb, uname, ucomment, udate)
         return render_template('showfb.html', uname=uname, ucomment=ucomment)
 
-    return render_template('feedback.html')
+    cursor = fdb.cursor()
+
+    all_rows = sfb.getrecentfb_db(cursor, 5)
+    return render_template('feedback.html', all_rows=all_rows)
