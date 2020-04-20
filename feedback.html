@@ -1,8 +1,19 @@
 <form method="post">
-<p> NAME: <input id="name1" name="name1" type="text"> </p>
+<h2><p> Please fill the feedback forum </p></h2>
+<p style="font-size:30px"> NAME: <input id="name1" name="name1" type="text">
 
-<p> Comment: </p>
-<p> <textarea id="comment1" name="comment1"></textarea>
+<p style="font-size:30px"> Comment: </p>
+<p style="font-size:30px"> <textarea id="comment1" name="comment1"></textarea>
  <input id="articleid" name="articleid" type="hidden" value="<? echo $_GET["id"]; > </p>
 
  <p> <input type="submit" value="Submit"> </p>   </form>
+
+<tbody>
+  {% for row in all_rows %}
+    <p style="font-size:30px">
+    <tr>
+      <td>{{row}}</td>
+    </tr>
+    </p>
+  {% endfor %}
+</tbody>
