@@ -1,13 +1,11 @@
 # NCV_Market
-This project collects novel corona virus stats and plots it against the stock market.
+This project is a website for people to check the strength index of stocks in the time of the corona virus pandemic. The RSI (relative strength index) of the stock is evaluated as well as how the stock correlates to the total and daily confirmed cases. 
 
-The goal here is to have a website where people can visit to check the novel corona virus stats (such as total cases per country) against the stock market (for instance, against S&P index by default).
+One key purpose is to keep people's searches in a database of tickers (i.e. stock symbols). The RSI for this database is updated daily. So instead of having every stock's RSI in there, we encorage people to find their own stocks. In return, people can also look at what others have searched. 
 
-For instance, a person can visit the website and enter a stock ticker symbol XXX into a box, and the website will show a graph from Jan 1st to now with Coronavirus stats and the stock price of XXX.
+In the final launch, we will also have Sentiment. People who search for a stock or just look at the existing stocks can enter their sentiment. 
 
-So, this project has many stages and we have to execute this quickly to take the website live. It definitely needs to be collaborative as there is - surprisingly - a lot of work to be done.
-
-At this point, the "README" is just a plan to develop this project. Here are the various stages for the minimum viable project (MVP):
+We will also have feedback and comments (at least in the initial launch) and gather them in a separate database.
 
 Data_Process:
 - Get stock market data from yfinance
@@ -16,11 +14,15 @@ Data_Process:
 - Persist data
 - Use panda or matplotlib to plot graphs
 
+Statistical functions:
+- Pearson method correlation from numpy (numpy.corrcoef) between stock performance and confirmed cases
+- 65-day moving average of RSI of a stock with a period of 10-days (10 trading days)
+
+Database
+- Sqlite3 (python) for stocks and for feedback/commments
+
 Website FrontEnd (FE):
-- Register a website (name and hosting: to be determined)
-- Have some basic white background 
-- Have an input for ticker symbol
-- Have space to display graph
+- Register a website (name and hosting: will it be tickerCV.com)
 
 Finally, connect Website FE with Data_Process to complete the mvp.
 
@@ -31,4 +33,4 @@ Sources:
 
 
 
-Target Date for MVP: March 25, 2020.
+Target Date for MVP: April 25, 2020.
